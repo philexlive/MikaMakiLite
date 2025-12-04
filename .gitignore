@@ -3,3 +3,4 @@
 /.env
 /*.session
 /src/config/*.yaml
+/**/__pycache__/

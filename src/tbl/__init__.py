@@ -1,0 +1,1 @@
+from .table import get_table_from_chat

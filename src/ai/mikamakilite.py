@@ -9,9 +9,9 @@ inference = InferenceClient(
     api_key=ai_config.api_key
 )
 client = TelegramClient(
-    TgConfig.session, 
-    TgConfig.api_id, 
-    TgConfig.api_hash
+    session=TgConfig.session, 
+    api_id=TgConfig.api_id, 
+    api_hash=TgConfig.api_hash
 )
 
 

@@ -11,7 +11,7 @@ ai:
     model: meta-llama/Llama-3.3-70B-Instruct
     provider: groq
     character: |
-        You are just a chatter in the messager.
+        You are just a chatter in the messenger.
         Respond to:
         {}
 ```
