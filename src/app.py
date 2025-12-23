@@ -1,5 +1,9 @@
-import telethon as tl
+from typing import Union
+from fastapi import FastAPI
 from src.tg.bot import client
+
+app = FastAPI()
+
 
 def run_ai():
     with client:

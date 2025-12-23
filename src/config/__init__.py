@@ -1,15 +1,26 @@
 import os
 import dotenv
 import yaml
-
+import re
+from typing import Optional, Self
 
 dotenv.load_dotenv()
 
 
 class TgConfig:
-    api_id = os.getenv("TG_API_ID")
-    api_hash = os.getenv("TG_API_HASH")
-    session = os.getenv("TG_SESSION")
+    api_id: str = os.getenv("TG_API_ID")
+    api_hash: str = os.getenv("TG_API_HASH")
+    session: str = os.getenv("TG_SESSION")
+    chat_id: tuple[int, int]
+
+    def __init__(self, chat_id: str | None = None):
+        if not chat_id is None: 
+            self.set_chat(chat_id)
+
+    def set_chat(self, chat_id: str) -> Self:
+        new_id = re.split(r"_", chat_id)
+        self.chat_id = tuple(int(i) for i in new_id)
+        return self
 
 
 class CharacterConfig:
@@ -20,10 +31,7 @@ class CharacterConfig:
             self.model: str = model
             self.provider: str = provider
             self.who: str = who
-        # model: str
-        # provider: str
-        # who: str
-
+        
     def __init__(self):
         self.ai: CharacterConfig.AIInfo = None
         self.watermark: str = None
@@ -44,9 +52,8 @@ class CharacterConfig:
 
 
 character_config = CharacterConfig()
-
+tg_config = TgConfig(
+    chat_id=os.getenv("DEFAULT_CHAT_ID")
+)
 
 dotenv.load_dotenv()
-
-
-CHAT_ID=int(os.getenv("CHAT_ID"))
