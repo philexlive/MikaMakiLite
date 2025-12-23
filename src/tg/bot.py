@@ -1,27 +1,21 @@
-from config import TgConfig, character_config, CHAT_ID
 from telethon import TelegramClient, events
-from huggingface_hub import InferenceClient
+from src.config import TgConfig, CHAT_ID, character_config
+from src.ai.client import inference
 
-
-inference = InferenceClient(
-    model=character_config.ai.model, 
-    provider=character_config.ai.provider, 
-    api_key=character_config.ai.api_key
-)
 client = TelegramClient(
     session=TgConfig.session, 
     api_id=TgConfig.api_id, 
     api_hash=TgConfig.api_hash
 )
 
-
 @client.on(events.NewMessage)
 async def replies(event):
     msg = event.raw_text
     if 'MikaMakiLite' in msg and event.chat_id == CHAT_ID:
         
-        sender = event.message.sender
-        
+        sender = await event.get_sender()
+        print(sender.username)
+
         sender = "{} - {} {}".format(
             sender.username,
             sender.first_name,

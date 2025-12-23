@@ -1,1 +1,1 @@
-from .service import client, inference
+from .client import inference

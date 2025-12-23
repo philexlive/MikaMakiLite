@@ -1,9 +1,5 @@
-import config
-import asyncio
 import telethon as tl
-
-from ai.service import client
-
+from src.tg.bot import client
 
 def run_ai():
     with client:
