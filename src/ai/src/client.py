@@ -3,8 +3,8 @@ import os
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 
-import src.ai.src.infrastructure.huggingface_source
-import src.ai.src.infrastructure.mistral_source
+import src.sources.huggingface_source
+import src.sources.mistral_source
 
 from .config.persona import persona
 
