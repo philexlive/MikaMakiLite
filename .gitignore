@@ -1,6 +1,6 @@
 /.venv/
 /.env/
 /.env
-/*.session
-/src/config/*.yaml
-/**/__pycache__/
+*.session
+src/config/
+__pycache__/

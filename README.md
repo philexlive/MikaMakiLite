@@ -18,13 +18,9 @@ ai:
 watermark: Sample Watermark
 ```
 
-# Environment variables
+# Future updates
 
-Sensitive info add into the top level `.env` file.
-```.env
-TG_API_ID=telegram_api_id
-TG_API_HASH=telegram_api_hash
-TG_SESSION=telegram_session_name
-HF_API_KEY=huggingface_api_key
-CHAT_ID=chat_you_want_to_read
-```
+## AI Module
+- [x] Migrate to Pydantic
+- [ ] Integrate FastAPI
+- [ ] Create a Docker Conteir
