@@ -20,13 +20,9 @@ class AIService:
     async def run(self):
         source: AISource
         
-        settings = ai_settings.model_dump(
-            exclude_none=True,
-            include=[
-                Field(alias="api_key", validation_alias='hf_api_key')
-            ]
-        )
-        source = HuggingFaceSource(**settings)
+        settings = ai_settings.model_dump(exclude_none=True)
+        source = MistralSource(**settings)
+        print(source.model_dump())
 
         model = source.build()
 

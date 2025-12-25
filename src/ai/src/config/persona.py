@@ -46,7 +46,6 @@ class YamlConfigSettingsSource(PydanticBaseSettingsSource):
 class PersonaSettings(BaseSettings):
     name: str = Field()
     bio: Optional[str] = Field()
-    model: Optional[str] = Field()
     
     model_config = SettingsConfigDict(env_file_encoding='utf-8')
 

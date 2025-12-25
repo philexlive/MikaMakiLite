@@ -2,5 +2,5 @@
 /.env/
 /.env
 *.session
-src/config/
+/src/config/
 __pycache__/
