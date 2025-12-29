@@ -4,3 +4,5 @@
 *.session
 /src/config/
 __pycache__/
+output.txt
+var/

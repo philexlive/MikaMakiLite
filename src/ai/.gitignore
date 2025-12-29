@@ -1,6 +1,4 @@
 .env
-
-/config/
-
-/response/
 /.venv/
+/config/
+/var/
