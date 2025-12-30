@@ -57,6 +57,6 @@ async def process_ai(request: TextRequest) -> AgentResponse:
 
 
 @app.post("/state")
-async def set_agent_model(model: Literal['huggingface', 'mistral']) -> str:
+async def set_agent_model(model: Literal['huggingface', 'mistral']):
     state_manager.state.model = model
     state_manager.save()

@@ -22,8 +22,8 @@ class StateManager:
         self.state = self.load()
 
     def load(self) -> BotState:
-        if not os.path.isdir('bot'):
-            os.mkdir('bot')
+        if not os.path.isdir('var'):
+            os.mkdir('var')
             
         if os.path.exists(self.filename):
             with open(self.filename, 'r') as f:

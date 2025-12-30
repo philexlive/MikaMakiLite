@@ -1,7 +1,7 @@
 .git/
 .venv/
 __pycache__/
-*.session
-var/
+# *.session
+# var/
 .gitignore
 README.md

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 class AgentState(BaseModel):
-    model: Literal['mistral', 'huggingface']
+    model: Literal['huggingface', 'mistral']
 
 
 class StateManager:

@@ -1,3 +1,12 @@
-ai:
-  
-tg:
+services:
+  ai-agent:
+    build:
+      context: ./src/ai
+    ports:
+      - 8001:8001
+
+  tg-client:
+    build:
+      context: ./src/tg
+    ports:
+      - 8002:8002

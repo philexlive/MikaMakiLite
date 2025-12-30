@@ -12,7 +12,7 @@ from src.bot_state import StateManager, BotState, ChatState
 
 
 client = TelegramClient(
-    session=client_settings.session, 
+    session=f"var/{client_settings.session}.session", 
     api_id=client_settings.api_id, 
     api_hash=client_settings.api_hash
 )
@@ -44,7 +44,7 @@ async def get_response(
             }
             logger.info(f"request: {request}")
             response = await http_client.put(
-                'http://localhost:8001/process',
+                'http://ai-agent:8001/process',
                 json=request
             )
             logger.info(f"response: {response}")

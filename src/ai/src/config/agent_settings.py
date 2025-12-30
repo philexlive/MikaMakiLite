@@ -30,7 +30,7 @@ class HuggingFaceConf(AgentConfigBase):
     def build(self) -> HuggingFaceModel:
         provider = HuggingFaceProvider(
             api_key=self.api_key,
-            provider_name=self.provider_name
+            provider_name=self.provider
         )
         model = HuggingFaceModel(
             self.model_name,

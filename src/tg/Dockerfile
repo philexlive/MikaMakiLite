@@ -1,4 +1,4 @@
-FROM python:3.15.5
+FROM python:3.13.5
 WORKDIR /app
 
 RUN useradd -m app
@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 # Copy source code
 COPY --chown=app:app . .
 
-EXPOSE 8000
+EXPOSE 8002
 USER app
 
-CMD ["fastapi", "run", "run.py", "--port", "8000"]
+CMD ["fastapi", "run", "run.py", "--port", "8002"]
