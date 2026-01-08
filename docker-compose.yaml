@@ -3,11 +3,21 @@ services:
     image: philexfertich/mika-ai-agent
     build: 
       context: ./src/ai-agent
-      dockerfile: ../../backend.Dockerfile
+    user: 1000:1000
     volumes:
       - ai-state:/app/var/states
     networks:
       - ai-net
+    # ports:
+    #   - 8000:8000
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+          target: ./src/ai-agent
+          initial_sync: true
+        - action: rebuild
+          path: ./src/ai-agent/config
   
   tg-user-client:
     image: philexfertich/mika-tg-user-client

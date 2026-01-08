@@ -12,9 +12,10 @@ class Persona(BaseModel):
     name: str = "Chatter"
     bio: str = "You are just a chatter"
 
+
 class PersonaSettings(BaseSettings):
     persona: Persona = Persona()
-    labels: dict[str, Optional[str]] = {}
+    behaviours: dict[str, Optional[str]] = {}
 
     @classmethod
     def settings_customise_sources(

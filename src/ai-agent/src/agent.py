@@ -20,4 +20,4 @@ agent = Agent(
 @agent.system_prompt
 def inject_sender_info(ctx: RunContext[TextRequest]) -> str:
     r = ctx.deps
-    return f"You are talking to {r.first_name} {r.second_name} ({r.username})."
+    return f"You are talking to {r.sender_initials}."

@@ -47,4 +47,3 @@ async def toggle_bot():
     
     state_manager.save()
     return state_manager.state.active
-

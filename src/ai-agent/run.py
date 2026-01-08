@@ -21,34 +21,26 @@ state_manager = StateManager()
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='var/logs.txt', level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 
 @app.put("/process")
 async def process_ai(request: TextRequest) -> AgentResponse:
-    if request.label in persona_settings.labels:
-        logger.info(f"Conversation has {request.label} label.")
+    if request.behaviour in persona_settings.behaviours:
+        logger.info(f"Conversation has {request.behaviour} behaviour.")
 
-        xs = "Conversations examples (You are {name}):\n{conv}".format(
-            conv=persona_settings.labels[request.label],
-            name=persona_settings.persona.name
-        )
+        behaviour = persona_settings.behaviours[request.behaviour]
     else:
-        logger.info(f"Conversation has no {request.label} label.")
-        xs = None
+        logger.info(f"Conversation has no {request.behaviour} behaviour.")
+        
+        behaviour = None
     
-    match state_manager.load().model:
-        case 'huggingface':
-            logger.info("Hugging Face model used.")
-            model = agent_settings.models.huggingface.build()
-        case 'mistral':
-            logger.info("Mistral model used.")
-            model = agent_settings.models.mistral.build()
+    model = agent_settings.models[state_manager.load().model]
 
     response = await agent.run(
         request.text,
         model=model,
-        instructions=xs,
+        instructions=behaviour,
         deps=request,
     )
 
@@ -57,6 +49,11 @@ async def process_ai(request: TextRequest) -> AgentResponse:
 
 
 @app.post("/state")
-async def set_agent_model(model: Literal['huggingface', 'mistral']):
-    state_manager.state.model = model
+async def set_agent_model(state: AgentState):
+    state_manager.state = state
     state_manager.save()
+
+
+@app.get("/state")
+async def  get_agent_state():
+    return state_manager.state

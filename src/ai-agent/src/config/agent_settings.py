@@ -1,6 +1,5 @@
-from typing import Optional
+from pydantic import field_validator
 
-from pydantic import BaseModel, Field
 from pydantic_settings import (
     BaseSettings,
     YamlConfigSettingsSource
@@ -13,56 +12,38 @@ from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.providers.mistral import MistralProvider
 
 
-class AgentConfigBase(BaseModel):
-    api_key: str
-    model_name: str
-
-    def build(self) -> Model:
-        raise NotImplementedError
-
-
-class HuggingFaceConf(AgentConfigBase):
-    api_key: str = Field(validation_alias="api-key")
-    model_name: str = Field("meta-llama/Llama-3.3-70B-Instruct",
-                            validation_alias="model")
-    provider: str = Field(validation_alias="provider")
-    
-    def build(self) -> HuggingFaceModel:
-        provider = HuggingFaceProvider(
-            api_key=self.api_key,
-            provider_name=self.provider
-        )
-        model = HuggingFaceModel(
-            self.model_name,
-            provider=provider
-        )
-
-        return model
-    
-
-
-class MistralConf(AgentConfigBase):
-    api_key: str = Field(validation_alias="api-key")
-    model_name: str = Field("mistral-medium-latest",
-                            validation_alias="model")
-    
-    def build(self) -> MistralModel:
-        provider = MistralProvider(api_key=self.api_key)
-        model = MistralModel(
-            self.model_name,
-            provider=provider
-        )
-
-        return model
-
-
-class ModelsContainer(BaseModel):
-    huggingface: HuggingFaceConf = None
-    mistral: MistralConf = None
-
-
 class AgentSettings(BaseSettings):
-    models: ModelsContainer = ModelsContainer()
+    models: dict[str, Model]
+
+    @field_validator('models', mode='before')
+    @classmethod
+    def model_factory(cls, value: dict) -> dict[str, Model]:
+        def get_clean_field(field):
+            if not isinstance(field, dict):
+                return field
+            return {k.replace('-', '_'): get_clean_field(v) for k, v in field.items()}
+                
+        cleaned_dict = get_clean_field(value)
+        models = {}
+
+        for name, fields in cleaned_dict.items():
+            provider_data = fields.pop('provider', {})
+            model_name = fields.get('model_name')
+
+            match name:
+                case 'mistral': 
+                    provider = MistralProvider(**provider_data)
+                    models[name] = MistralModel(
+                        model_name,
+                        provider=provider
+                    )
+                case _:
+                    provider = HuggingFaceProvider(**provider_data)
+                    models[name] = HuggingFaceModel(
+                        model_name,
+                        provider=provider
+                    )
+        return models
     
     @classmethod
     def settings_customise_sources(
