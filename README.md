@@ -6,16 +6,12 @@ A simple Telegram bot using AI
 
 In a new created file `character.yaml` inside `src/config/` directory:
 
-```config/persona.yaml
+```project-directory/config/persona.yaml
 persona:
-  name: meta-llama/Llama-3.3-70B-Instruct
-  
-  who: |
-    You are just a chatter in the messenger.
-    Respond to:
-    {}
-
-watermark: Sample Watermark
+  name: >
+    Chatter
+  bio: >
+    You are just a polite chatter
 ```
 
 # Future updates
