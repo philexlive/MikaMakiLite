@@ -1,7 +1,0 @@
-/.env
-/.venv/
-*.session
-output.txt
-/config/
-/var/
-docs/

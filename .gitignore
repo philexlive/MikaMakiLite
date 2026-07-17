@@ -1,9 +1,9 @@
 .venv/
-envs/
+.vscode/
 .secrets/
+envs/
+__pycache__/
+var/
 *.env
 *.session
-/src/config/
-__pycache__/
 output.txt
-var/

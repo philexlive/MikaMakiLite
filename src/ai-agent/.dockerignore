@@ -1,6 +1,0 @@
-.git/
-.venv/
-__pycache__/
-var/
-.gitignore
-README.md

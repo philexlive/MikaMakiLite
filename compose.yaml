@@ -1,0 +1,15 @@
+name: mika-extension
+
+services:
+  client:
+    image: philexfertich/client
+    build: 
+      context: ./src/ai-agent
+      dockerfile: ./Containerfile
+    volumes:
+      - ai-state:/app/var/states
+    env_file:
+      - .env
+
+volumes:
+  client-var:
