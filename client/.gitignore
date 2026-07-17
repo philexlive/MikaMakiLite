@@ -1,0 +1,6 @@
+config/
+.env
+.venv/
+*.session
+output.txt
+config/
